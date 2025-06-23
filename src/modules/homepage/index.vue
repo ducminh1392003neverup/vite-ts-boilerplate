@@ -3,7 +3,6 @@ import { h, ref } from 'vue';
 import {
   ShoppingCartOutlined,
   PhoneFilled,
-  SearchOutlined,
   RedoOutlined,
   LockFilled,
   UserOutlined,
@@ -11,7 +10,7 @@ import {
   MenuOutlined,
 } from '@ant-design/icons-vue';
 import { Card, Row, Col, Drawer } from 'ant-design-vue';
-import { useProductStore } from '@/store/productStore.js';
+import { useProductStore } from '@/store/productStore.ts';
 import image1 from '@/assets/images/image1.png';
 import image11 from '@/assets/images/image11.png';
 import image12 from '@/assets/images/image12.png';
@@ -23,10 +22,21 @@ import ist2 from '@/assets/images/insta2.png';
 import ist3 from '@/assets/images/insta3.png';
 import ist4 from '@/assets/images/insta4.png';
 import ist5 from '@/assets/images/insta5.png';
-import Visa from '@/assets/images/visa.png';
+import dodoi from '@/assets/images/dodoi.png';
+import nu from '@/assets/images/nu.png';
+import nam from '@/assets/images/nam.png';
+import { useRouter } from 'vue-router';
+import Header from '@/components/header.vue';
+import Footer from '@/components/footer.vue';
+
+const router = useRouter();
+
+function logout() {
+  localStorage.removeItem('app_access_token');
+  router.push('/login');
+}
 
 const productStore = useProductStore();
-const showAccountDropdown = ref(false);
 const showMobileMenu = ref(false);
 
 const toggleMobileMenu = () => {
@@ -35,77 +45,8 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
+  <Header />
   <div class="min-h-screen bg-gray-50 py-2">
-    <header class="mb-2 mt-2">
-      <div class="flex items-center justify-between mb-2 px-4 max-w-7xl mx-auto">
-        <div class="hidden md:flex items-center ml-0 md:ml-10">
-          <PhoneFilled class="mr-2" />
-          <p class="text-xs">HỖ TRỢ MIỄN PHÍ: 1900 1234</p>
-        </div>
-        <div class="hidden md:flex items-center space-x-4 text-sm mr-0 md:mr-10">
-          <div class="relative flex items-center">
-            <UserOutlined class="mr-1" />
-            <div
-              class="relative group"
-              @mouseenter="showAccountDropdown = true"
-              @mouseleave="showAccountDropdown = false"
-            >
-              <p
-                class="font-light text-xs cursor-pointer select-none transition-colors hover:text-blue-500"
-                :class="{ 'text-blue-500': showAccountDropdown }"
-                tabindex="0"
-              >
-                TÀI KHOẢN
-              </p>
-              <div
-                v-if="showAccountDropdown"
-                class="absolute left-0 top-full w-40 bg-white border rounded shadow-lg z-50 transition-all duration-300"
-              >
-                <a href="/login" class="block px-4 py-2 text-sm hover:bg-gray-100"
-                  ><LockFilled class="mr-1" />Đăng nhập</a
-                >
-                <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100"
-                  ><UserOutlined class="mr-1" />Đăng ký</a
-                >
-              </div>
-            </div>
-          </div>
-          <p class="font-light text-xs">GIỚI THIỆU</p>
-          <p class="font-light text-xs">LIÊN HỆ</p>
-        </div>
-      </div>
-      <hr />
-      <div class="flex items-center justify-between mt-2 px-4 max-w-7xl mx-auto">
-        <div class="flex items-center">
-          <button class="md:hidden mr-4" @click="toggleMobileMenu">
-            <MenuOutlined class="text-xl" />
-          </button>
-          <h2 class="text-xl md:text-2xl font-black">SHOPMINH</h2>
-        </div>
-
-        <div class="hidden md:flex items-center space-x-5 ml-10">
-          <a href="#" class="text-sm">TRANG CHỦ</a>
-          <a href="#" class="text-sm">SẢN PHẨM</a>
-          <a href="#" class="text-sm">GIỚI THIỆU</a>
-          <a href="#" class="text-sm">TIN TỨC</a>
-          <a href="#" class="text-sm">ĐẠI LÝ</a>
-          <a href="#" class="text-sm">LIÊN HỆ</a>
-        </div>
-
-        <div class="flex items-center space-x-4">
-          <button class="hidden md:block bg-green-500 text-white px-6 md:px-10 py-2 rounded-3xl">
-            ĐẶT HÀNG
-          </button>
-          <div class="flex items-center space-x-4">
-            <button>
-              <SearchOutlined />
-            </button>
-            <button><ShoppingCartOutlined /> <span class="text-sm">0/0đ</span></button>
-          </div>
-        </div>
-      </div>
-    </header>
-
     <Drawer
       placement="left"
       :visible="showMobileMenu"
@@ -115,22 +56,41 @@ const toggleMobileMenu = () => {
     >
       <div class="flex flex-col space-y-4">
         <a href="#" class="text-sm py-2 border-b">TRANG CHỦ</a>
-        <a href="#" class="text-sm py-2 border-b">SẢN PHẨM</a>
+        <a href="/product" class="text-sm py-2 border-b">SẢN PHẨM</a>
         <a href="#" class="text-sm py-2 border-b">GIỚI THIỆU</a>
         <a href="#" class="text-sm py-2 border-b">TIN TỨC</a>
         <a href="#" class="text-sm py-2 border-b">ĐẠI LÝ</a>
         <a href="#" class="text-sm py-2 border-b">LIÊN HỆ</a>
         <div class="pt-4">
-          <button class="w-full bg-green-500 text-white px-6 py-2 rounded-3xl">ĐẶT HÀNG</button>
+          <button
+            class="w-full bg-transparent border-none shadow-none text-green-600 px-6 py-2 rounded-3xl hover:bg-green-100 transition-colors duration-200 font-semibold"
+          >
+            ĐẶT HÀNG
+          </button>
         </div>
         <div class="pt-4 flex flex-col space-y-2">
-          <a href="/login" class="flex items-center text-sm"><LockFilled class="mr-2" />Đăng nhập</a>
-          <a href="#" class="flex items-center text-sm"><UserOutlined class="mr-2" />Đăng ký</a>
+          <a
+            href="/login"
+            class="flex items-center text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200"
+            ><LockFilled class="mr-2" />Đăng nhập</a
+          >
+          <a
+            href="#"
+            class="flex items-center text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200"
+            ><UserOutlined class="mr-2" />Đăng ký</a
+          >
+          <button
+            @click="logout"
+            class="flex items-center text-sm text-red-600 bg-red-50 rounded-lg border-none shadow-none px-3 py-2 mt-1 hover:bg-red-100 hover:text-red-700 transition-colors duration-200 font-semibold gap-2"
+          >
+            <UserOutlined class="mr-1" />Đăng xuất
+          </button>
         </div>
       </div>
     </Drawer>
 
     <hr />
+
     <div class="max-w-7xl mx-auto px-4">
       <img :src="image1" alt="image" class="w-full" />
       <div class="flex flex-col md:flex-row items-center justify-between mx-2 md:mx-10 mt-10 gap-6">
@@ -226,15 +186,21 @@ const toggleMobileMenu = () => {
       <div class="text-center mb-8 md:mb-12">
         <h1 class="text-3xl md:text-5xl font-black text-gray-900 mb-4">SẢN PHẨM NỔI BẬT</h1>
         <div class="flex flex-wrap justify-center items-center gap-4 md:gap-5 px-2 md:px-10">
-          <a href="#" class="text-xs md:text-sm">THỜI TRANG NAM</a>
+          <a href="#" class="text-xs md:text-sm no-underline text-slate-900 hover:text-teal-500"
+            >THỜI TRANG NAM</a
+          >
           <div class="h-4 w-px bg-gray-300 hidden md:block"></div>
-          <a href="#" class="text-xs md:text-sm">THỜI TRANG NỮ</a>
+          <a href="#" class="text-xs md:text-sm no-underline text-slate-900 hover:text-teal-500"
+            >THỜI TRANG NỮ</a
+          >
           <div class="h-4 w-px bg-gray-300 hidden md:block"></div>
-          <a href="#" class="text-xs md:text-sm">ÁO ĐÔI</a>
+          <a href="#" class="text-xs md:text-sm no-underline text-slate-900 hover:text-teal-500">ÁO ĐÔI</a>
           <div class="h-4 w-px bg-gray-300 hidden md:block"></div>
-          <a href="#" class="text-xs md:text-sm">TÚI SÁCH</a>
+          <a href="#" class="text-xs md:text-sm no-underline text-slate-900 hover:text-teal-500">TÚI SÁCH</a>
           <div class="h-4 w-px bg-gray-300 hidden md:block"></div>
-          <a href="#" class="text-xs md:text-sm">PHỤ KIỆN KHÁC</a>
+          <a href="#" class="text-xs md:text-sm no-underline text-slate-900 hover:text-teal-500"
+            >PHỤ KIỆN KHÁC</a
+          >
         </div>
       </div>
       <Row :gutter="[16, 16]" class="w-full">
@@ -248,35 +214,78 @@ const toggleMobileMenu = () => {
           :xl="6"
           class="mb-4 gap-4"
         >
-          <Card
-            class="h-full rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
-            :hoverable="true"
-            :cover="
-              h('img', {
-                src: product.image,
-                alt: product.title,
-                class: 'w-full h-48 object-contain bg-white p-4',
-              })
-            "
-          >
-            <template #actions>
-              <a-button
-                type="primary"
-                class="w-full h-10 rounded-lg font-medium flex items-center justify-center gap-2"
-              >
-                <ShoppingCartOutlined />
-                Thêm vào giỏ
-              </a-button>
-            </template>
-            <Card.Meta :title="product.title">
-              <template #description>
-                <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ product.description }}</p>
-                <p class="text-xl font-semibold text-blue-500 m-0">{{ product.price.toLocaleString() }} đ</p>
+          <div @click="router.push(`/product/${product.id}`)" style="cursor: pointer">
+            <Card
+              class="h-full rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
+              :hoverable="true"
+              :cover="
+                h('img', {
+                  src: product.image,
+                  alt: product.title,
+                  class: 'w-full h-48 object-contain bg-white p-4',
+                })
+              "
+            >
+              <template #actions>
+                <a-button
+                  type="primary"
+                  class="w-full h-10 rounded-lg font-medium flex items-center justify-center gap-2"
+                >
+                  <ShoppingCartOutlined />
+                  Thêm vào giỏ
+                </a-button>
               </template>
-            </Card.Meta>
-          </Card>
+              <Card.Meta :title="product.title">
+                <template #description>
+                  <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ product.description }}</p>
+                  <p class="text-xl font-semibold text-blue-500 m-0">
+                    {{ product.price.toLocaleString() }} đ
+                  </p>
+                </template>
+              </Card.Meta>
+            </Card>
+          </div>
         </Col>
       </Row>
+    </div>
+    <div class="py-20">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl font-black text-gray-900 mb-4">DANH MỤC SẢN PHẨM</h1>
+      </div>
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            class="relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1"
+          >
+            <img :src="dodoi" alt="Áo đôi" class="w-full h-[300px] object-cover" />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            >
+              <span class="text-white text-2xl font-bold">ÁO ĐÔI</span>
+            </div>
+          </div>
+          <div
+            class="relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1"
+          >
+            <img :src="nu" alt="Thời trang nữ" class="w-full h-[300px] object-cover" />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            >
+              <span class="text-white text-2xl font-bold">THỜI TRANG NỮ</span>
+            </div>
+          </div>
+          <div
+            class="relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1"
+          >
+            <img :src="nam" alt="Thời trang nam" class="w-full h-[300px] object-cover" />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            >
+              <span class="text-white text-2xl font-bold">THỜI TRANG NAM</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="max-w-7xl mx-auto mt-10 px-4">
       <div class="text-center mb-12">
@@ -293,33 +302,37 @@ const toggleMobileMenu = () => {
           :xl="6"
           class="mb-4 gap-4"
         >
-          <Card
-            class="h-full rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
-            :hoverable="true"
-            :cover="
-              h('img', {
-                src: product.image,
-                alt: product.title,
-                class: 'w-full h-48 object-contain bg-white p-4',
-              })
-            "
-          >
-            <template #actions>
-              <a-button
-                type="primary"
-                class="w-full h-10 rounded-lg font-medium flex items-center justify-center gap-2"
-              >
-                <ShoppingCartOutlined />
-                Thêm vào giỏ
-              </a-button>
-            </template>
-            <Card.Meta :title="product.title">
-              <template #description>
-                <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ product.description }}</p>
-                <p class="text-xl font-semibold text-blue-500 m-0">{{ product.price.toLocaleString() }} đ</p>
+          <div @click="router.push(`/product/${product.id}`)" style="cursor: pointer">
+            <Card
+              class="h-full rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-white"
+              :hoverable="true"
+              :cover="
+                h('img', {
+                  src: product.image,
+                  alt: product.title,
+                  class: 'w-full h-48 object-contain bg-white p-4',
+                })
+              "
+            >
+              <template #actions>
+                <a-button
+                  type="primary"
+                  class="w-full h-10 rounded-lg font-medium flex items-center justify-center gap-2"
+                >
+                  <ShoppingCartOutlined />
+                  Thêm vào giỏ
+                </a-button>
               </template>
-            </Card.Meta>
-          </Card>
+              <Card.Meta :title="product.title">
+                <template #description>
+                  <p class="text-gray-600 text-sm mb-3 line-clamp-2">{{ product.description }}</p>
+                  <p class="text-xl font-semibold text-blue-500 m-0">
+                    {{ product.price.toLocaleString() }} đ
+                  </p>
+                </template>
+              </Card.Meta>
+            </Card>
+          </div>
         </Col>
       </Row>
     </div>
@@ -348,57 +361,7 @@ const toggleMobileMenu = () => {
       </div>
     </div>
 
-    <footer class="relative bg-zinc-100 text-slate-950">
-      <div
-        class="flex flex-col md:flex-row md:items-start justify-between max-w-7xl mx-auto mb-6 mt-10 md:mt-28 px-4 md:px-10"
-      >
-        <div class="text-center md:text-left mb-8 md:mb-0 md:mt-10">
-          <h2 class="font-black text-2xl md:text-3xl">SHOPMINH</h2>
-          <p class="text-gray-600 text-xs mt-4">
-            We have clothes that suits your style and <br class="hidden md:block" />
-            which you're proud to wear. From <br class="hidden md:block" />
-            women to men.
-          </p>
-          <img :src="social" alt="social" class="h-6 mt-3 mx-auto md:mx-0" />
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-16 mt-4 md:mt-10">
-          <div class="text-center md:text-left">
-            <h2 class="font-medium text-sm md:text-base">COMPANY</h2>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">About</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Features</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Works</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Carrer</p>
-          </div>
-          <div class="text-center md:text-left">
-            <h2 class="font-medium text-sm md:text-base">HELP</h2>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Customer Support</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Delivery Details</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Term & Conditions</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Privacy Policy</p>
-          </div>
-          <div class="text-center md:text-left">
-            <h2 class="font-medium text-sm md:text-base">FAQ</h2>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Account</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Manage Delivery</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Oders</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Payment</p>
-          </div>
-          <div class="text-center md:text-left">
-            <h2 class="font-medium text-sm md:text-base">Liên hệ</h2>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">Toa E8, 14 Thụy Khuê, Hà Nội,</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">support@sapo.vn</p>
-            <p class="text-gray-600 my-3 md:my-5 text-xs">1900 1234</p>
-          </div>
-        </div>
-      </div>
-      <hr class="font-medium max-w-7xl mx-auto" />
-      <div
-        class="container px-4 py-6 text-center md:text-left mb-10 text-gray-600 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto gap-4 md:gap-0"
-      >
-        <p class="text-xs md:text-sm">SHOPMINH © 2003-2025, All Rights Reserved</p>
-        <img :src="Visa" alt="visa" class="w-auto h-8 md:h-10 object-cover" />
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 

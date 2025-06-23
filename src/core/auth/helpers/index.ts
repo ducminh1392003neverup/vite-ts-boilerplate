@@ -14,6 +14,19 @@ export const authGuard = async ({
   canAccess: boolean;
   redirectTo: any;
 }> => {
+  const token = getAppAccessToken();
+  const isAuthenticated = !!token;
+
+  const publicPages = ['/login'];
+  const isPublic = publicPages.includes(to.path);
+
+  if (!isAuthenticated && !isPublic) {
+    return {
+      canAccess: false,
+      redirectTo: '/login',
+    };
+  }
+
   return {
     canAccess: true,
     redirectTo: {},
