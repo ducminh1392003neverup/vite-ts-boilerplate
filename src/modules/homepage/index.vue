@@ -96,7 +96,7 @@ const toggleMobileMenu = () => {
       <div class="flex flex-col md:flex-row items-center justify-between mx-2 md:mx-10 mt-10 gap-6">
         <div class="flex items-center w-full md:w-auto">
           <div>
-            <CarFilled class="text-2xl" />
+            <CarFilled class="text-2xl mb-3" />
           </div>
           <div class="ml-4">
             <h2 class="text-sm md:text-base">MIỄN PHÍ VẬN CHUYỂN</h2>
@@ -106,7 +106,7 @@ const toggleMobileMenu = () => {
         <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
         <div class="flex items-center w-full md:w-auto">
           <div class="flex items-center mr-5">
-            <RedoOutlined class="text-2xl" />
+            <RedoOutlined class="text-2xl mb-3" />
           </div>
           <div>
             <h2 class="text-sm md:text-base">ĐỔI TRẢ MIỄN PHÍ</h2>
@@ -116,7 +116,7 @@ const toggleMobileMenu = () => {
         <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
         <div class="flex items-center w-full md:w-auto">
           <div class="mr-5">
-            <PhoneFilled class="text-2xl" />
+            <PhoneFilled class="text-2xl mb-3" />
           </div>
           <div class="mr-0 md:mr-10">
             <h2 class="text-sm md:text-base">HỖ TRỢ MIỄN PHÍ</h2>

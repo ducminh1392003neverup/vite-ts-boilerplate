@@ -59,7 +59,7 @@ const toggleMobileMenu = () => {
               >
               <button
                 @click="logout"
-                class="block w-full px-4 py-2 text-sm font-semibold text-red-600 bg-red-50 rounded-lg border-none shadow-none hover:bg-red-100 hover:text-red-700 flex items-center transition-colors duration-200"
+                class="block w-full px-4 py-2 text-sm font-semibold text-red-600 rounded-lg border-none shadow-none hover:bg-red-100 hover:text-red-700 flex items-center transition-colors duration-200"
               >
                 <span><LogoutOutlined class="mr-1" /></span>Đăng xuất
               </button>
